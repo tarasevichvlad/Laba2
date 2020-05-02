@@ -57,6 +57,8 @@ namespace App3
 			{
 				var listView = new ListView
 				{
+					SeparatorVisibility = SeparatorVisibility.Default,
+					SeparatorColor = Color.Black,
 					HasUnevenRows = true,
 					ItemsSource = news.Articles,
 					ItemTemplate = new DataTemplate(() =>
@@ -64,23 +66,31 @@ namespace App3
 						var imageUrl = new UriImageSource();
 						imageUrl.SetBinding(UriImageSource.UriProperty, "UrlToImage");
 
-						var title = new Label();
+						var title = new Label
+						{
+							FontSize = 23,
+							FontAttributes = FontAttributes.Bold
+						};
 						title.SetBinding(Label.TextProperty, "Title");
 
-						var description = new Editor();
-						description.SetBinding(Editor.TextProperty, "Description");
-						description.IsReadOnly = true;
+						var description = new Label();
+						description.SetBinding(Label.TextProperty, "Description");
+
+						var date = new Label();
+						date.HorizontalTextAlignment = TextAlignment.End;
+						date.SetBinding(Label.TextProperty, "PublishedAt");
 
 						var image = new Image
 						{
 							Source = imageUrl
 						};
 
+						//var rrr = new 
 						return new ViewCell
 						{
 							View = new StackLayout
 							{
-								Children = {image, title, description}
+								Children = {title, image, description, date}
 							}
 						};
 					})
